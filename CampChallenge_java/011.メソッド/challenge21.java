@@ -59,16 +59,36 @@ public class challenge21 extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            String num = "003";
-              for (int i=0; i<=2; i++){
-                  if(i==0){
-                      continue;
-                  }
-                  if(method(num)[i].equals("null")){
-                      continue;
-                  }
-                  out.print(method(num)[i]);
-              }
+            String num1 = "001";
+            for (int i=0; i<=2; i++){
+                if(i==0){
+                    continue;
+                }
+                if(method(num1)[i].equals("null")){
+                    continue;
+                }
+                out.print(method(num1)[i]);
+            }
+            String num2 = "002";
+            for (int i=0; i<=2; i++){
+                if(i==0){
+                    continue;
+                }
+                if(method(num2)[i].equals("null")){
+                    continue;
+                }
+                out.print(method(num2)[i]);
+            }
+            String num3 = "003";
+            for (int i=0; i<=2; i++){
+                if(i==0){
+                    continue;
+                }
+                if(method(num3)[i].equals("null")){
+                    continue;
+                }
+                out.print(method(num3)[i]);
+            }
         }
     }
 
