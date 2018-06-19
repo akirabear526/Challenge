@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>ログイン</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form action="http://localhost:8080/Challenge2/challenge63" method="post">
+            <h2>ログイン</h2>
+            ユーザー名を入力してください。<br>
+            <input type="text" name="txtName">
+            <br><br>
+            年齢を入力してください。<br>
+            <input type="number" name="numAge" min="0">
+            <br><br>
+            性別を選んでください。<br>
+            <input type="radio" name="Gender" value="男">
+            男性　　
+            <input type="radio" name="Gender" value="女">
+            女性<br><br>
+            <input type="submit" value="送信">
+        </form>
+    </body>
+</html>
