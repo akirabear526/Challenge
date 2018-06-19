@@ -53,18 +53,18 @@ public class challenge62 extends HttpServlet {
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
                 db_con = DriverManager.getConnection(adress, userID, pass);
                 
-                request.setCharacterEncoding("UTF-8");
-                String table = request.getParameter("txtTable");
-                
-                String sql = "select * from "+ table +" where age = ? or birthday = ?";
+                String sql = "select * from profiles where name = ? or age = ? or birthday = ?";
                 //入力データを取得
                 db_st = db_con.prepareStatement(sql);
                 
+                request.setCharacterEncoding("UTF-8");
+                String name = request.getParameter("txtName");
                 String age = request.getParameter("numAge");
                 String birthday = request.getParameter("dateBirth");
                 
-                db_st.setString(1,age);
-                db_st.setString(2,birthday);
+                db_st.setString(1,name);
+                db_st.setString(2,age);
+                db_st.setString(3,birthday);
                 
                 db_data = db_st.executeQuery();
                 //記述
