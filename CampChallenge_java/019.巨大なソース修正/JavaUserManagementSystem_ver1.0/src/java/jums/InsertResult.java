@@ -2,7 +2,9 @@ package jums;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,17 +35,33 @@ public class InsertResult extends HttpServlet {
         HttpSession session = request.getSession();
         
         try{
-            //ユーザー情報に対応したJavaBeansオブジェクトに格納していく
-            UserDataDTO userdata = new UserDataDTO();
-            userdata.setName((String)session.getAttribute("name"));
-            Calendar birthday = Calendar.getInstance();
-            userdata.setBirthday(birthday.getTime());
-            userdata.setType(Integer.parseInt((String)session.getAttribute("type")));
-            userdata.setTell((String)session.getAttribute("tell"));
-            userdata.setComment((String)session.getAttribute("comment"));
+            request.setCharacterEncoding("UTF-8");//セッションに格納する文字コードをUTF-8に変更
+            String accesschk = request.getParameter("ac");
+            if(accesschk ==null || (Integer)session.getAttribute("ac")!=Integer.parseInt(accesschk)){
+                throw new Exception("不正なアクセスです");
+            }
             
+            //ユーザー情報に対応したJavaBeansオブジェクトに格納していく
+            UserDataBeans udb = (UserDataBeans)session.getAttribute("udb");
+            UserDataDTO userdata = new UserDataDTO();
+            userdata.setName(udb.getName());
+            int year = Integer.parseInt(udb.getYear());
+            int month = Integer.parseInt(udb.getMonth());
+            int day = Integer.parseInt(udb.getDay());
+            Calendar cl = Calendar.getInstance();
+            cl.set(cl.YEAR,year);
+            cl.set(cl.MONTH, month-1);
+            cl.set(cl.DATE, day);
+            Date d = cl.getTime();
+            userdata.setBirthday(d);
+            userdata.setType(Integer.parseInt(udb.getType()));
+            userdata.setTell(udb.getTell());
+            userdata.setComment(udb.getComment());           
             //DBへデータの挿入
             UserDataDAO .getInstance().insert(userdata);
+            
+            session.removeAttribute("ac");
+            session.removeAttribute("udb");
             
             request.getRequestDispatcher("/insertresult.jsp").forward(request, response);
         }catch(Exception e){
